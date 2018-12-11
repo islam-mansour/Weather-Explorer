@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Weather - {{ city }}
+{% endblock %}
+
+{% block content %}
+
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-offset-4 is-4">
+                <div class="box">
+                    <h1 class="column title is-offset-3"> {{ city }} </h1>
+                    <article class="media">
+                        <div class="media-left">
+                            <figure class="image is-50x50">
+                                <img src="http://openweathermap.org/img/w/{{ icon }}.png" alt="Image">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <b> temperature           </b>: {{ temperature }}° F
+                                    <br>
+                                    <b> pressure              </b>: {{ pressure }} Pa
+                                    <br>
+                                    <b> humidity              </b>: {{ humidity }}
+                                    <br>
+                                    <b> minimum temperature   </b>: {{ temp_min }}° F
+                                    <br>
+                                    <b> maximum temperature   </b>: {{ temp_max }}° F
+                                    <br>
+                                    <b> wind speed            </b>: {{ wind_speed }}m/s
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <a class="button is-success is-size-5" href="{% url 'index' %}"> 	
+                    &lt; Back
+                </a>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

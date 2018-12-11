@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Weather
+{% endblock %}
+
+{% block content %}
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                {{ form.name }}
+                            </div>
+                            <div class="control">
+                                <button type="submit" class="button is-info">
+                                    Add City
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    {% if error %}
+                    <article class="message is-danger">
+                        <div class="message-body">
+                            {{ error }}
+                        </div>
+                    </article>  
+                    {% endif %}
+            </div>
+        </div>
+    </section>
+    <section class="section" style="overflow:auto">
+        <div class="container">
+            <div class="columns" style="display: -webkit-flex; -webkit-flex-wrap: wrap; display: flex; flex-wrap: wrap;">
+                {% for city_weather in cities_weather %}
+                <div class="column is-offset-0 is-4">
+                    <div class="box">
+                        <a class="delete is-small" style="float:right" href="{% url 'remove' city_weather.city %}"></a>
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-50x50">
+                                    <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="Image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <span class="title">
+                                            <a href="{% url 'detail' city_weather.city %}" > 
+                                                {{ city_weather.city }}
+                                             </a>
+                                        </span>
+                                        <br>
+                                        <span class="subtitle">{{ city_weather.temperature }}° F</span>
+                                        <br> {{ city_weather.main }}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
